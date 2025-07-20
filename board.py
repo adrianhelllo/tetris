@@ -20,6 +20,8 @@ class Board:
                     print("$", end=' ')
             print()
 
+    
+
 if __name__ == '__main__':
     pass
 
