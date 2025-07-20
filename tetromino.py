@@ -1,6 +1,7 @@
 import config as config_f
 import random
 import board as board_f
+import copy
 
 class Tetromino:
     def __init__(self, shape=random.choice(list(config_f.PIECES.keys()))):
@@ -8,11 +9,27 @@ class Tetromino:
         self.cells = config_f.PIECES[shape]
         print(self.shape, self.cells)
 
+    def overlay_piece(self, pos, cells, board):
+        new_board = copy.deepcopy(board)
+        y, x = pos
+
+        for dy, row in enumerate(cells):
+            for dx, cell in enumerate(row):
+                if cell == 1:
+                    new_board[y + dy][x + dx] = 1
+
+        return new_board
+
     def spawn_tetromino(self, board):
         position = [0, (len(board[0])-1)//2-(len(self.cells[0])-1)//2]
-        new_board = board
-        new_board[position[0]][position[1]] = 1
-        return print(new_board)
+        new_board = self.overlay_piece(position, self.cells, board)
+
+        for row in new_board:
+            for cell in row:
+                print(cell, end=" ")
+            print()
+
+        return new_board
 
 if __name__ == '__main__':
     tetromino = Tetromino()
