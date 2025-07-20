@@ -15,7 +15,9 @@ class Board:
         for row in self.board:
             for cell in row:
                 if cell == 0:
-                    print("[]", end=' ')
+                    print("*", end=' ')
+                else:
+                    print("$", end=' ')
             print()
 
 if __name__ == '__main__':
