@@ -9,19 +9,26 @@ from logic import shift_board as shift
 
 def main():
     playing = True
+
+    pieces = []
     board_obj = board_f.Board()
-    piece = piece_f.Tetromino()
-    board_obj.board = piece.spawn_tetromino(board_obj.board)
+    pieces.append(piece_f.Tetromino())
+
+    active_piece = pieces[len(pieces) - 1]
+    board_obj.board = active_piece.spawn_tetromino(board_obj.board)
+
     update(board_obj)
 
-    for i in range(20):
-        time.sleep(0.25)
+    for i in range(100):
+        time.sleep(0.02)
         board_obj.board = shift(board_obj.board)
         update(board_obj)
 
-        if i % 4 == 0:
+        if i % 10 == 5:
             print("creating new tetromino")
-            piece = piece_f.Tetromino()
+            pieces.append(piece_f.Tetromino())
+            active_piece = pieces[len(pieces) - 1]
+            board_obj.board =  active_piece.spawn_tetromino(board_obj.board)
 
 if __name__ == '__main__':
     main()

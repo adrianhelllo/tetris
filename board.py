@@ -12,10 +12,11 @@ class Board:
         os.system('cls' if os.name == 'nt' else 'clear')
 
     def render_board(self):
+        print('=' * BOARD_WIDTH * 2)
         for row in self.board:
             for cell in row:
                 if cell == 0:
-                    print(" ", end=' ')
+                    print(".", end=' ')
                 else:
                     print("$", end=' ')
             print('|')
