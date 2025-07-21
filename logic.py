@@ -3,7 +3,6 @@ import copy
 
 def update_board(board):
     board.clear_previous()
-    time.sleep(0.05)
     board.render_board()
 
 def shift_board(board):

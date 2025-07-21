@@ -18,7 +18,8 @@ class Board:
                     print("*", end=' ')
                 else:
                     print("$", end=' ')
-            print()
+            print('|')
+        print('=' * BOARD_WIDTH * 2)
 
     
 
