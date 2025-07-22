@@ -18,7 +18,7 @@ class Board:
                 if cell == 0:
                     print(".", end=' ')
                 else:
-                    print("$", end=' ')
+                    print("■", end=' ')
             print('|')
         print('=' * BOARD_WIDTH * 2)
 
