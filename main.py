@@ -19,8 +19,8 @@ def main():
 
     update(board_obj)
 
-    for i in range(100):
-        time.sleep(0.02)
+    for i in range(30):
+        time.sleep(0.2)
         board_obj.board = shift(board_obj.board)
         update(board_obj)
 
