@@ -15,6 +15,3 @@ def shift_active_piece(board, piece):
 
     return shifted_board
 
-def check_collision():
-    pass
-

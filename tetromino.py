@@ -18,7 +18,10 @@ class Tetromino:
         for dy, row in enumerate(cells):
             for dx, cell in enumerate(row):
                 if cell == 1:
-                    new_board[y + dy][x + dx] = 1
+                    board_y = y + dy
+                    board_x = x + dx
+                    if 0 <= board_y < len(new_board) and 0 <= board_x < len(new_board[0]):
+                        new_board[y + dy][x + dx] = 1
 
         return new_board
     
@@ -51,31 +54,23 @@ class Tetromino:
                     if board_y + 1 < BOARD_HEIGHT and board[board_y + 1][board_x] == 0:
                         edge_cells.append([board_y, board_x])
                     break
+        print(edge_cells)
         return edge_cells
             
     def shift_piece(self, board):
-        shifted_board = copy.deepcopy(board)
-
-        for position in sorted(self.cell_positions, key=lambda p: -p[0]):
-            pos_y, pos_x = position
-            if pos_y + 1 < len(shifted_board):
-                shifted_board[pos_y][pos_x], shifted_board[pos_y + 1][pos_x] = 0, 1
-        
         self.position[0] += 1
         self.cell_positions = self.get_cell_positions(self.cells, self.position)
 
-        return shifted_board
+        return board
 
     def can_fall(self, board):
-        edge_cells = self.get_bottom_cells(board)
-
-        if all(cell[0] + 1 < len(board) for cell in edge_cells):
-            if all(board[cell[0] + 1][cell[1]] == 0 for cell in edge_cells):
-                return True
-
-        return False
+        positions = self.get_cell_positions(self.cells, self.position)
+        for y, x in positions:
+            if y + 1 >= BOARD_HEIGHT:
+                return False
+            if board[y + 1][x] != 0:
+                return False
+        return True
 
 if __name__ == '__main__':
-    x = lambda x: 2 * x
-
-    print(x(20))
+    ... # testing
