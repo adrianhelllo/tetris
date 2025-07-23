@@ -54,12 +54,16 @@ class Tetromino:
         return edge_cells
             
     def shift_piece(self, board):
-        for position in self.cell_positions:
+        shifted_board = copy.deepcopy(board)
+
+        for position in sorted(self.cell_positions, key=lambda p: -p[0]):
             pos_y, pos_x = position
-            board[pos_y][pos_x], board[pos_y + 1][pos_x] = 0, 1
+            shifted_board[pos_y][pos_x], shifted_board[pos_y + 1][pos_x] = 0, 1
         
         self.position[0] += 1
         self.cell_positions = self.get_cell_positions(self.cells, self.position)
+
+        return shifted_board
 
     def can_fall(self, board):
         edge_cells = self.get_bottom_cells(board)
@@ -71,6 +75,6 @@ class Tetromino:
         return False
 
 if __name__ == '__main__':
-    tetromino = Tetromino()
-    print(tetromino.cells, tetromino.cell_positions)
-    tetromino.spawn_tetromino([[0 for _ in range(10)] for _ in range(20)])
+    x = lambda x: 2 * x
+
+    print(x(20))
