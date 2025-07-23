@@ -9,7 +9,7 @@ class Tetromino:
         self.shape = random.choice(list(config_f.PIECES.keys()))
         self.cells = config_f.PIECES[self.shape]
         self.position = [0, (BOARD_WIDTH - 1) // 2 - (len(self.cells[0]) - 1) // 2]
-        self.cell_positions = self.get_cell_positions(self.cells, self.position)
+        self.cell_positions = []
 
     def overlay_piece(self, pos, cells, board):
         new_board = copy.deepcopy(board)
@@ -34,7 +34,7 @@ class Tetromino:
 
     def spawn_tetromino(self, board):
         new_board = self.overlay_piece(self.position, self.cells, board)
-        self.get_cell_positions(self.cells, self.position)
+        self.cell_positions = self.get_cell_positions(self.cells, self.position)
 
         return new_board
     
@@ -45,8 +45,8 @@ class Tetromino:
         for x in range(len(self.cells[0])):
             for y in range(len(self.cells) - 1, -1, -1):
                 if self.cells[y][x] == 1:
-                    board_y = pos_y
-                    board_x = pos_x
+                    board_y = pos_y + y
+                    board_x = pos_x + x
 
                     if board_y + 1 < BOARD_HEIGHT and board[board_y + 1][board_x] == 0:
                         edge_cells.append([board_y, board_x])
@@ -57,6 +57,18 @@ class Tetromino:
         for position in self.cell_positions:
             pos_y, pos_x = position
             board[pos_y][pos_x], board[pos_y + 1][pos_x] = 0, 1
+        
+        self.position[0] += 1
+        self.cell_positions = self.get_cell_positions(self.cells, self.position)
+
+    def can_fall(self, board):
+        edge_cells = self.get_bottom_cells(board)
+
+        if all(cell[0] + 1 < len(board) for cell in edge_cells):
+            if all(board[cell[0] + 1][cell[1]] == 0 for cell in edge_cells):
+                return True
+
+        return False
 
 if __name__ == '__main__':
     tetromino = Tetromino()
