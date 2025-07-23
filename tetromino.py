@@ -58,7 +58,8 @@ class Tetromino:
 
         for position in sorted(self.cell_positions, key=lambda p: -p[0]):
             pos_y, pos_x = position
-            shifted_board[pos_y][pos_x], shifted_board[pos_y + 1][pos_x] = 0, 1
+            if pos_y + 1 < len(shifted_board):
+                shifted_board[pos_y][pos_x], shifted_board[pos_y + 1][pos_x] = 0, 1
         
         self.position[0] += 1
         self.cell_positions = self.get_cell_positions(self.cells, self.position)
