@@ -17,7 +17,7 @@ def main():
 
     update(board_obj)
 
-    for i in range(100):
+    while playing:
         time.sleep(0.2)
         if active_piece.can_fall(board_obj.board):
             active_piece.shift_piece(board_obj.board)
@@ -27,6 +27,10 @@ def main():
             update(board_obj)
             board_obj.board = original_board
         else:
+            if logic_f.is_game_over(board_obj.board, board_obj):
+                playing = False
+                break
+
             board_obj.board = active_piece.overlay_piece(active_piece.position, active_piece.cells, board_obj.board)
             update(board_obj)
             active_piece = piece_f.Tetromino()
