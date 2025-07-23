@@ -38,7 +38,7 @@ class Tetromino:
 
         return new_board
     
-    def check_collision(self, board):
+    def get_bottom_cells(self, board):
         edge_cells = []
         pos_y, pos_x = self.position
 
@@ -54,7 +54,9 @@ class Tetromino:
         return edge_cells
             
     def shift_piece(self, board):
-        ...
+        for position in self.cell_positions:
+            pos_y, pos_x = position
+            board[pos_y][pos_x], board[pos_y + 1][pos_x] = 0, 1
 
 if __name__ == '__main__':
     tetromino = Tetromino()
