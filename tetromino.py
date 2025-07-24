@@ -1,7 +1,9 @@
 import config as config_f
+import keyboard
 import random
 import board as board_f
 import copy
+import time
 from config import BOARD_WIDTH, BOARD_HEIGHT
 
 class Tetromino:
@@ -73,4 +75,27 @@ class Tetromino:
         return True
 
 if __name__ == '__main__':
-    ... # testing
+    def sideways_control_pressed(e):
+        print(f"Button {e.name}")
+
+    
+
+    left_pressed = False
+    right_pressed = False
+
+    while True:
+        if keyboard.is_pressed(config_f.LEFT_BIND):
+            if not left_pressed:
+                print("Left key pressed")
+                left_pressed = True
+        else:
+            left_pressed = False
+
+        if keyboard.is_pressed(config_f.RIGHT_BIND):
+            if not right_pressed:
+                print("Right key pressed")
+                right_pressed = True
+        else:
+            right_pressed = False
+
+        time.sleep(0.01)

@@ -1,4 +1,5 @@
 import time
+import keyboard
 import board as board_f
 import logic as logic_f
 import tetromino as piece_f
