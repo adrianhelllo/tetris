@@ -64,6 +64,9 @@ class Tetromino:
         self.cell_positions = self.get_cell_positions(self.cells, self.position)
 
         return board
+    
+    def move_horizontally(self, board, left_bind=config_f.LEFT_BIND, right_bind=config_f.RIGHT_BIND):
+        ...
 
     def can_fall(self, board):
         positions = self.get_cell_positions(self.cells, self.position)
