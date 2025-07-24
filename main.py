@@ -37,6 +37,7 @@ def main():
                     right_pressed = False
 
             time.sleep(TICK)
+            
             if i % fall_interval == 0:
                 if active_piece.can_fall(board_obj.board):
                     active_piece.shift_piece(board_obj.board)
