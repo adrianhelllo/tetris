@@ -9,7 +9,7 @@ from logic import shift_active_piece as shift
 from config import TICK_RATE as TICK
 
 def main():
-    fall_interval = 4
+    fall_interval = 8
     playing = True
     left_pressed = False
     right_pressed = False
@@ -24,20 +24,20 @@ def main():
         for i in range(fall_interval):
             if keyboard.is_pressed(config_f.LEFT_BIND):
                 if not left_pressed:
-                    print("Left key pressed")
+                    active_piece.move_horizontally(board_obj.board, config_f.LEFT_BIND)
                     left_pressed = True
                 else:
                     left_pressed = False
 
             if keyboard.is_pressed(config_f.RIGHT_BIND):
                 if not right_pressed:
-                    print("Right key pressed")
+                    active_piece.move_horizontally(board_obj.board, config_f.RIGHT_BIND)
                     right_pressed = True
                 else:
                     right_pressed = False
 
             time.sleep(TICK)
-            
+
             if i % fall_interval == 0:
                 if active_piece.can_fall(board_obj.board):
                     active_piece.shift_piece(board_obj.board)

@@ -65,8 +65,17 @@ class Tetromino:
 
         return board
     
-    def move_horizontally(self, board, left_bind=config_f.LEFT_BIND, right_bind=config_f.RIGHT_BIND):
+    def move_horizontally(self, board, direction):
+        if direction == config_f.LEFT_BIND:
+            self.position[1] -= 1
+        elif direction == config_f.RIGHT_BIND:
+            self.position[1] += 1
+
+        self.cell_positions = self.get_cell_positions(self.cells, self.position)
+
+    def can_be_moved(self, board, direction):
         ...
+            
 
     def can_fall(self, board):
         positions = self.get_cell_positions(self.cells, self.position)
@@ -78,27 +87,4 @@ class Tetromino:
         return True
 
 if __name__ == '__main__':
-    def sideways_control_pressed(e):
-        print(f"Button {e.name}")
-
-    
-
-    left_pressed = False
-    right_pressed = False
-
-    while True:
-        if keyboard.is_pressed(config_f.LEFT_BIND):
-            if not left_pressed:
-                print("Left key pressed")
-                left_pressed = True
-        else:
-            left_pressed = False
-
-        if keyboard.is_pressed(config_f.RIGHT_BIND):
-            if not right_pressed:
-                print("Right key pressed")
-                right_pressed = True
-        else:
-            right_pressed = False
-
-        time.sleep(0.01)
+    ... #testing

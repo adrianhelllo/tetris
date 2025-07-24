@@ -6,7 +6,7 @@ RIGHT_BIND = 'd'
 LEFT_BIND = 'a'
 DOWN_BIND = 's'
 
-TICK_RATE = 0.05
+TICK_RATE = 0.025
 
 PIECES = {
     'I': [[1, 1, 1, 1]],
