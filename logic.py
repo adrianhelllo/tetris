@@ -7,6 +7,9 @@ def update_board(board):
     board.clear_previous()
     board.render_board(filled_lines)
 
+    if len(filled_lines) > 0:
+        board.shift_rest()
+
 def shift_active_piece(board, piece):
     shifted_board = copy.deepcopy(board)
 
