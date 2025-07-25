@@ -26,5 +26,12 @@ def is_game_over(board, brd_obj):
     
     return False
 
+def render_with_active(board_obj, active_piece):
+    temp_board = active_piece.overlay_piece(active_piece.position, active_piece.cells, board_obj.board)
+    original_board = board_obj.board
+    board_obj.board = temp_board
+    update_board(board_obj)
+    board_obj.board = original_board
+
 
 

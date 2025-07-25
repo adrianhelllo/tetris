@@ -73,9 +73,8 @@ class Tetromino:
 
         self.cell_positions = self.get_cell_positions(self.cells, self.position)
 
-    def can_be_moved(self, board, direction):
+    def check_collision(self, board, new_position):
         ...
-            
 
     def can_fall(self, board):
         positions = self.get_cell_positions(self.cells, self.position)

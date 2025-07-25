@@ -9,52 +9,57 @@ from logic import shift_active_piece as shift
 from config import TICK_RATE as TICK
 
 def main():
-    fall_interval = 8
+    score = 0
+    fall_interval = TICK * 20
     playing = True
-    left_pressed = False
-    right_pressed = False
 
     board_obj = board_f.Board()
     active_piece = piece_f.Tetromino()
-
     active_piece.spawn_tetromino(board_obj.board)
     update(board_obj)
 
+    prev_left = False
+    prev_right = False
+    last_fall_time = time.time()
+
     while playing:
-        for i in range(fall_interval):
-            if keyboard.is_pressed(config_f.LEFT_BIND):
-                if not left_pressed:
-                    active_piece.move_horizontally(board_obj.board, config_f.LEFT_BIND)
-                    left_pressed = True
-                else:
-                    left_pressed = False
+        now = time.time()
 
-            if keyboard.is_pressed(config_f.RIGHT_BIND):
-                if not right_pressed:
-                    active_piece.move_horizontally(board_obj.board, config_f.RIGHT_BIND)
-                    right_pressed = True
-                else:
-                    right_pressed = False
+        if now - last_fall_time >= fall_interval:
+            if active_piece.can_fall(board_obj.board):
+                active_piece.shift_piece(board_obj.board)
+                temp_board = active_piece.overlay_piece(active_piece.position, active_piece.cells, board_obj.board)
+                original_board = board_obj.board
+                board_obj.board = temp_board
+                update(board_obj)
+                board_obj.board = original_board
+            else:
+                if logic_f.is_game_over(board_obj.board, board_obj):
+                    playing = False
+                    break
 
-            time.sleep(TICK)
+                board_obj.board = active_piece.overlay_piece(active_piece.position, active_piece.cells, board_obj.board)
+                update(board_obj)
+                active_piece = piece_f.Tetromino()
+                active_piece.spawn_tetromino(board_obj.board)
 
-            if i % fall_interval == 0:
-                if active_piece.can_fall(board_obj.board):
-                    active_piece.shift_piece(board_obj.board)
-                    temp_board = active_piece.overlay_piece(active_piece.position, active_piece.cells, board_obj.board)
-                    original_board = board_obj.board
-                    board_obj.board = temp_board
-                    update(board_obj)
-                    board_obj.board = original_board
-                else:
-                    if logic_f.is_game_over(board_obj.board, board_obj):
-                        playing = False
-                        break
+            last_fall_time = now
 
-                    board_obj.board = active_piece.overlay_piece(active_piece.position, active_piece.cells, board_obj.board)
-                    update(board_obj)
-                    active_piece = piece_f.Tetromino()
-                    active_piece.spawn_tetromino(board_obj.board)
+        cur_left = keyboard.is_pressed(config_f.LEFT_BIND)
+        cur_right = keyboard.is_pressed(config_f.RIGHT_BIND)
+
+        if cur_left and not prev_left:
+            active_piece.move_horizontally(board_obj.board, config_f.LEFT_BIND)
+
+        if cur_right and not prev_right:
+            active_piece.move_horizontally(board_obj.board, config_f.RIGHT_BIND)
+
+        logic_f.render_with_active(board_obj, active_piece)
+
+        prev_left = cur_left
+        prev_right = cur_right
+
+        time.sleep(TICK)
 
 if __name__ == '__main__':
     main()
