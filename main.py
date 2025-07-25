@@ -49,10 +49,14 @@ def main():
         cur_right = keyboard.is_pressed(config_f.RIGHT_BIND)
 
         if cur_left and not prev_left:
-            active_piece.move_horizontally(board_obj.board, config_f.LEFT_BIND)
+            new_pos = [[active_piece.position[0], active_piece.position[1] - 1]]
+            if not active_piece.check_collision(board_obj.board, [active_piece.position[0], active_piece.position[1] - 1]):
+                active_piece.move_horizontally(board_obj.board, config_f.LEFT_BIND)
 
         if cur_right and not prev_right:
-            active_piece.move_horizontally(board_obj.board, config_f.RIGHT_BIND)
+            new_pos = [[active_piece.position[0], active_piece.position[1] + 1]]
+            if not active_piece.check_collision(board_obj.board, [active_piece.position[0], active_piece.position[1] + 1]):
+                active_piece.move_horizontally(board_obj.board, config_f.RIGHT_BIND)
 
         logic_f.render_with_active(board_obj, active_piece)
 

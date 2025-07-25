@@ -74,7 +74,17 @@ class Tetromino:
         self.cell_positions = self.get_cell_positions(self.cells, self.position)
 
     def check_collision(self, board, new_position):
-        ...
+        old_position = self.position
+        self.position = new_position
+        new_positions = self.get_cell_positions(self.cells, new_position)
+        self.position = old_position
+        
+        if any(x < 0 or x >= len(board[0]) or y < 0 or y >= len(board) for y, x in new_positions):
+            return True
+        for y, x in new_positions:
+            if board[y][x]:
+                return True
+            return False
 
     def can_fall(self, board):
         positions = self.get_cell_positions(self.cells, self.position)
