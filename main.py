@@ -28,11 +28,7 @@ def main():
         if now - last_fall_time >= fall_interval:
             if active_piece.can_fall(board_obj.board):
                 active_piece.shift_piece(board_obj.board)
-                temp_board = active_piece.overlay_piece(active_piece.position, active_piece.cells, board_obj.board)
-                original_board = board_obj.board
-                board_obj.board = temp_board
-                update(board_obj)
-                board_obj.board = original_board
+                logic_f.render_with_active(board_obj, active_piece)
             else:
                 if logic_f.is_game_over(board_obj.board, board_obj):
                     playing = False
@@ -49,12 +45,10 @@ def main():
         cur_right = keyboard.is_pressed(config_f.RIGHT_BIND)
 
         if cur_left and not prev_left:
-            new_pos = [[active_piece.position[0], active_piece.position[1] - 1]]
             if not active_piece.check_collision(board_obj.board, [active_piece.position[0], active_piece.position[1] - 1]):
                 active_piece.move_horizontally(board_obj.board, config_f.LEFT_BIND)
 
         if cur_right and not prev_right:
-            new_pos = [[active_piece.position[0], active_piece.position[1] + 1]]
             if not active_piece.check_collision(board_obj.board, [active_piece.position[0], active_piece.position[1] + 1]):
                 active_piece.move_horizontally(board_obj.board, config_f.RIGHT_BIND)
 
