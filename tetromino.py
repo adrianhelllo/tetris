@@ -19,11 +19,11 @@ class Tetromino:
 
         for dy, row in enumerate(cells):
             for dx, cell in enumerate(row):
-                if cell == 1:
+                if cell != 0:
                     board_y = y + dy
                     board_x = x + dx
                     if 0 <= board_y < len(new_board) and 0 <= board_x < len(new_board[0]):
-                        new_board[y + dy][x + dx] = 1
+                        new_board[y + dy][x + dx] = self.shape
 
         return new_board
     
@@ -32,7 +32,7 @@ class Tetromino:
 
         for y in range(len(cells)):
             for x in range(len(cells[0])):
-                if cells[y][x] == 1:
+                if cells[y][x] != 0:
                     positions.append([pos[0] + y, pos[1] + x])
 
         return positions
@@ -49,7 +49,7 @@ class Tetromino:
 
         for x in range(len(self.cells[0])):
             for y in range(len(self.cells) - 1, -1, -1):
-                if self.cells[y][x] == 1:
+                if self.cells[y][x] != 0:
                     board_y = pos_y + y
                     board_x = pos_x + x
 
@@ -81,7 +81,7 @@ class Tetromino:
         
         if any(x < 0 or x >= len(board[0]) or y < 0 or y >= len(board) for y, x in new_positions):
             return True
-        if any(board[y][x] == 1 for y, x in new_positions):
+        if any(board[y][x] != 0 for y, x in new_positions):
             return True
         return False
 

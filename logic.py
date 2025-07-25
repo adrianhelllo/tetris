@@ -23,7 +23,7 @@ def shift_active_piece(board, piece):
 def is_game_over(board, brd_obj):
     message = config_f.GAME_OVER_MESSAGE
 
-    if any(board[0][x] == 1 for x in range(len(board[0]))):
+    if any(board[0][x] != 0 for x in range(len(board[0]))):
         brd_obj.clear_previous()
         print(message)
         return True

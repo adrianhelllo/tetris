@@ -1,5 +1,6 @@
 import os
 import time
+import config as config_f
 from config import BOARD_WIDTH, BOARD_HEIGHT
 
 class Board:
@@ -14,7 +15,7 @@ class Board:
     def check_filled_lines(self):
         filled_indices = []
         for y in range(len(self.board)):
-            if all(cell == 1 for cell in self.board[y]):
+            if all(cell != 0 for cell in self.board[y]):
                 filled_indices.append(y)
 
         self.clear_lines(filled_indices)
@@ -33,10 +34,12 @@ class Board:
             for x in self.board[y]:
                 if y in filled_l:
                     print("▒", end=' ')
+                    
                 elif x == 0:
                     print(".", end=' ')
                 else:
-                    print("■", end=' ')
+                    color = config_f.COLORS.get(x, '')
+                    print(f"{color}■{config_f.RESET}", end=' ')
             print('|')
         print('=' * self.width * 2)
 

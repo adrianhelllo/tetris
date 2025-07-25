@@ -32,6 +32,18 @@ PIECES = {
           [0, 1, 0]]
 }
 
+RESET = '\033[0m'
+
+COLORS = {
+    'I' : '\033[91m',  # red
+    'O' : '\033[92m',  # green
+    'S' : '\033[93m',  # yellow
+    'Z' : '\033[94m',  # blue
+    'L' : '\033[95m',  # magenta
+    'J' : '\033[96m',  # cyan
+    'T': '\033[33m',  # orange-ish
+}
+
 GAME_OVER_MESSAGE = r"""
  $$$$$$\                                           $$$$$$\                                 
 $$  __$$\                                         $$  __$$\                                
