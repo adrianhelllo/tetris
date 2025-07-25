@@ -81,10 +81,9 @@ class Tetromino:
         
         if any(x < 0 or x >= len(board[0]) or y < 0 or y >= len(board) for y, x in new_positions):
             return True
-        for y, x in new_positions:
-            if board[y][x]:
-                return True
-            return False
+        if any(board[y][x] == 1 for y, x in new_positions):
+            return True
+        return False
 
     def can_fall(self, board):
         positions = self.get_cell_positions(self.cells, self.position)
