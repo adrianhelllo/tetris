@@ -11,32 +11,35 @@ class Board:
     def clear_previous(self):
         os.system('cls' if os.name == 'nt' else 'clear')
 
-    def check_filled_lines(self, board):
+    def check_filled_lines(self):
         filled_indices = []
-        for y in range(len(board)):
-            if all(cell == 1 for cell in board[y]):
+        for y in range(len(self.board)):
+            if all(cell == 1 for cell in self.board[y]):
                 filled_indices.append(y)
 
-    def flash_cleared_lines(self, filled):
-        ...
-        
+        self.clear_lines(filled_indices)
+        return filled_indices
+
     def shift_rest(self):
         ...
 
-    def clear_lines(self, filled_l, board):
+    def clear_lines(self, filled_l):
         for line_y in filled_l:
-            board[line_y] = [0] * len(board[line_y])
+            self.board[line_y] = [0] * len(self.board[line_y])
 
-    def render_board(self):
+    def render_board(self, filled_l):
         print('=' * BOARD_WIDTH * 2)
-        for row in self.board:
-            for cell in row:
-                if cell == 0:
+        for y in range(len(self.board)):
+            for x in self.board[y]:
+                if y in filled_l:
+                    print("▒", end=' ')
+                elif x == 0:
                     print(".", end=' ')
                 else:
                     print("■", end=' ')
             print('|')
-        print('=' * BOARD_WIDTH * 2)
+        print('=' * self.width * 2)
+
 
     
 

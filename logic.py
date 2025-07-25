@@ -3,8 +3,9 @@ import copy
 import config as config_f
 
 def update_board(board):
+    filled_lines = board.check_filled_lines()
     board.clear_previous()
-    board.render_board()
+    board.render_board(filled_lines)
 
 def shift_active_piece(board, piece):
     shifted_board = copy.deepcopy(board)
