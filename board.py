@@ -46,9 +46,7 @@ class Board:
                     print(f"{color}■{config_f.RESET}", end=' ')
             print('|')
         print('=' * self.width * 2)
-
-
-    
+        
 
 if __name__ == '__main__':
     pass

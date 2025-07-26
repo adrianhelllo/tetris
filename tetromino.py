@@ -67,23 +67,93 @@ class Tetromino:
     
     def move_horizontally(self, board, direction):
         if direction == config_f.LEFT_BIND:
-            self.position[1] -= 1
+            if not self.check_collision(board, [self.position[0], self.position[1] - 1], self.cells):
+                self.position[1] -= 1
         elif direction == config_f.RIGHT_BIND:
-            self.position[1] += 1
+            if not self.check_collision(board, [self.position[0], self.position[1] + 1], self.cells):
+                self.position[1] += 1
 
         self.cell_positions = self.get_cell_positions(self.cells, self.position)
 
-    def check_collision(self, board, new_position):
-        old_position = self.position
-        self.position = new_position
-        new_positions = self.get_cell_positions(self.cells, new_position)
-        self.position = old_position
+    def check_collision(self, board, new_position, new_cells):
+        # old_position = self.position
+        # self.position = new_position
+        # new_positions = self.get_cell_positions(self.cells, new_position)
+        # self.position = old_position
         
+        # if any(x < 0 or x >= len(board[0]) or y < 0 or y >= len(board) for y, x in new_positions):
+        #     return True
+        # if any(board[y][x] != 0 for y, x in new_positions):
+        #     return True
+        # return False
+
+        new_positions = self.get_cell_positions(new_cells, new_position)
+
         if any(x < 0 or x >= len(board[0]) or y < 0 or y >= len(board) for y, x in new_positions):
             return True
-        if any(board[y][x] != 0 for y, x in new_positions):
+        if any(y >= 0 and board[y][x] != 0 for y, x in new_positions):
             return True
         return False
+    
+    def pad_matrix(self, matrix):
+        mat_extended = copy.deepcopy(matrix)
+
+        if not mat_extended or not mat_extended[0]:
+            return [[0]*4 for _ in range(4)]
+
+        
+        while len(mat_extended) < 4:
+            mat_extended.append([0] * len(mat_extended[0]))
+
+        while len(mat_extended[0]) < 4:
+            for row in mat_extended:
+                row.append(0)
+
+        return mat_extended
+    
+    def trim_matrix(self, matrix):
+        trimmed_matrix = copy.deepcopy(matrix)
+
+        # for y in range(len(matrix)):
+        #     if all(matrix[y][x] == 0 for x in matrix[y]):
+        #         trimmed_matrix.pop(y)
+
+        y = 0
+        while y < len(trimmed_matrix):
+            if all(trimmed_matrix[y][x] == 0 for x in range(len(trimmed_matrix[y]))):
+                trimmed_matrix.pop(y)
+            else:
+                y += 1
+
+        for x in range(len(matrix[0])):
+            if all(matrix[y][x] != 0 for y in range(len(matrix))):
+                for y in range(len(matrix)):
+                    trimmed_matrix[y].pop(x)
+
+        return trimmed_matrix
+    
+    def rotate_piece(self, board):
+        mat_padded = self.pad_matrix(self.cells)
+        rotated_positions = []
+
+        for y in range(len(mat_padded)):
+            for x in range(len(mat_padded[y])):
+                if mat_padded[y][x] != 0:
+                    rotated_positions.append([x, 3 - y])
+
+        if not all(0 <= pos[0] < 4 and 0 <= pos[1] < 4 for pos in rotated_positions):
+            return
+
+        rotated_piece = [[0 for _ in range(4)] for _ in range(4)]
+
+        for pos in rotated_positions:
+            rotated_piece[pos[0]][pos[1]] = self.shape
+
+        rotated_piece = self.trim_matrix(rotated_piece)
+
+        if not self.check_collision(board, self.position, rotated_piece):
+            self.cells = rotated_piece
+            self.cell_positions = self.get_cell_positions(self.cells, self.position)    
 
     def can_fall(self, board):
         positions = self.get_cell_positions(self.cells, self.position)
