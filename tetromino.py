@@ -112,25 +112,18 @@ class Tetromino:
         return mat_extended
     
     def trim_matrix(self, matrix):
-        trimmed_matrix = copy.deepcopy(matrix)
 
         # for y in range(len(matrix)):
         #     if all(matrix[y][x] == 0 for x in matrix[y]):
         #         trimmed_matrix.pop(y)
 
-        y = 0
-        while y < len(trimmed_matrix):
-            if all(trimmed_matrix[y][x] == 0 for x in range(len(trimmed_matrix[y]))):
-                trimmed_matrix.pop(y)
-            else:
-                y += 1
+        trimmed = [row for row in matrix if any(cell != 0 for cell in row)]
 
-        for x in range(len(matrix[0])):
-            if all(matrix[y][x] != 0 for y in range(len(matrix))):
-                for y in range(len(matrix)):
-                    trimmed_matrix[y].pop(x)
-
-        return trimmed_matrix
+        if trimmed: 
+            cols = list(zip(*trimmed)) #transpose, look at w3schools for what zip is
+            trimmed_cols = [col for col in cols if any(cell != 0 for cell in col)]
+            trimmed = [list(row) for row in zip(*trimmed_cols)] #undo transposing
+        return trimmed
     
     def rotate_piece(self, board):
         mat_padded = self.pad_matrix(self.cells)
@@ -153,7 +146,7 @@ class Tetromino:
 
         if not self.check_collision(board, self.position, rotated_piece):
             self.cells = rotated_piece
-            self.cell_positions = self.get_cell_positions(self.cells, self.position)    
+            self.cell_positions = self.get_cell_positions(self.cells, self.position)
 
     def can_fall(self, board):
         positions = self.get_cell_positions(self.cells, self.position)
