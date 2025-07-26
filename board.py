@@ -18,23 +18,27 @@ class Board:
             if all(cell != 0 for cell in self.board[y]):
                 filled_indices.append(y)
 
-        self.clear_lines(filled_indices)
         return filled_indices
 
-    def shift_rest(self):
-        ...
+    def shift_rest(self, filled_l):
+        shifted_board = [row for i, row in enumerate(self.board) if i not in filled_l]
+
+        num_l_cleared = len(filled_l)
+        for _ in range(num_l_cleared):
+            shifted_board.insert(0, [0] * self.width)
+
+        self.board = shifted_board
 
     def clear_lines(self, filled_l):
         for line_y in filled_l:
             self.board[line_y] = [0] * len(self.board[line_y])
 
-    def render_board(self, filled_l):
+    def render_board(self, filled_l=None):
         print('=' * BOARD_WIDTH * 2)
         for y in range(len(self.board)):
             for x in self.board[y]:
-                if y in filled_l:
+                if filled_l and y in filled_l:
                     print("▒", end=' ')
-                    
                 elif x == 0:
                     print(".", end=' ')
                 else:

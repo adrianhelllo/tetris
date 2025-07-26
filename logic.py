@@ -2,13 +2,18 @@ import time
 import copy
 import config as config_f
 
-def update_board(board):
-    filled_lines = board.check_filled_lines()
+def update_board(board, filled_l=None):
     board.clear_previous()
-    board.render_board(filled_lines)
+    board.render_board(filled_l)
+
+def check_line_clears(board):
+    filled_lines = board.check_filled_lines()
 
     if len(filled_lines) > 0:
-        board.shift_rest()
+        update_board(board, filled_lines)
+        time.sleep(0.15)
+        board.clear_lines(filled_lines)
+        board.shift_rest(filled_lines)
 
 def shift_active_piece(board, piece):
     shifted_board = copy.deepcopy(board)

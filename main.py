@@ -37,6 +37,8 @@ def main():
                 board_obj.board = active_piece.overlay_piece(active_piece.position, active_piece.cells, board_obj.board)
                 update(board_obj)
 
+                logic_f.check_line_clears(board_obj)
+
                 active_piece = piece_f.Tetromino()
                 active_piece.spawn_tetromino(board_obj.board)
 
