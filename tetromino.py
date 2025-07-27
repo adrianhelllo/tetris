@@ -99,8 +99,7 @@ class Tetromino:
         mat_extended = copy.deepcopy(matrix)
 
         if not mat_extended or not mat_extended[0]:
-            return [[0]*4 for _ in range(4)]
-
+            return [[0] * 4 for _ in range(4)]
         
         while len(mat_extended) < 4:
             mat_extended.append([0] * len(mat_extended[0]))
