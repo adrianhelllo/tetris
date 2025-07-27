@@ -10,7 +10,8 @@ from config import TICK_RATE as TICK
 
 def main():
     score = 0
-    fall_interval = TICK * 20
+    base_fall_interval = config_f.BASE_FALL_INTERVAL
+    soft_drop_interval = config_f.SOFT_DROP_INTERVAL
     playing = True
 
     board_obj = board_f.Board()
@@ -25,6 +26,11 @@ def main():
 
     while playing:
         now = time.time()
+        
+        if keyboard.is_pressed(config_f.DOWN_BIND):
+            fall_interval = soft_drop_interval
+        else:
+            fall_interval = base_fall_interval
 
         if now - last_fall_time >= fall_interval:
             if active_piece.can_fall(board_obj.board):
