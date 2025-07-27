@@ -5,6 +5,7 @@ import board as board_f
 import copy
 import time
 from config import BOARD_WIDTH, BOARD_HEIGHT
+from config import LARGEST_PIECE_WIDTH as lrg
 
 class Tetromino:
     def __init__(self):
@@ -99,12 +100,12 @@ class Tetromino:
         mat_extended = copy.deepcopy(matrix)
 
         if not mat_extended or not mat_extended[0]:
-            return [[0] * 4 for _ in range(4)]
+            return [[0] * lrg for _ in range(lrg)]
         
-        while len(mat_extended) < 4:
+        while len(mat_extended) < lrg:
             mat_extended.append([0] * len(mat_extended[0]))
 
-        while len(mat_extended[0]) < 4:
+        while len(mat_extended[0]) < lrg:
             for row in mat_extended:
                 row.append(0)
 
@@ -133,7 +134,7 @@ class Tetromino:
                 if mat_padded[y][x] != 0:
                     rotated_positions.append([x, 3 - y])
 
-        if not all(0 <= pos[0] < 4 and 0 <= pos[1] < 4 for pos in rotated_positions):
+        if not all(0 <= pos[0] < lrg and 0 <= pos[1] < lrg for pos in rotated_positions):
             return
 
         rotated_piece = [[0 for _ in range(4)] for _ in range(4)]

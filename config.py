@@ -35,6 +35,8 @@ PIECES = {
           [0, 1, 0]]
 }
 
+LARGEST_PIECE_WIDTH = max(len(row) for piece in PIECES.values() for row in piece)
+
 RESET = '\033[0m'
 
 COLORS = {
@@ -44,7 +46,7 @@ COLORS = {
     'Z' : '\033[94m',  # blue
     'L' : '\033[95m',  # magenta
     'J' : '\033[96m',  # cyan
-    'T': '\033[33m',  # orange-ish
+    'T': '\033[33m'  # orange-ish
 }
 
 GAME_OVER_MESSAGE = r"""
