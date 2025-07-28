@@ -4,7 +4,7 @@ import board as board_f
 import logic as logic_f
 import tetromino as piece_f
 import config as config_f
-from logic import update_board as update
+from logic import update_render as update
 from logic import shift_active_piece as shift
 from config import TICK_RATE as TICK
 
@@ -18,7 +18,7 @@ def main():
     board_obj = board_f.Board()
     active_piece = piece_f.Tetromino()
     active_piece.spawn_tetromino(board_obj.board)
-    update(board_obj)
+    update([])
 
     prev_left = False
     prev_right = False

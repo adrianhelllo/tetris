@@ -6,15 +6,21 @@ import config as config_f
 def clear_terminal():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-def update_board(board, filled_l=None):
+def update_render(info, side, board, filled_l=None):
+    lines, next, level, score = info
+
     clear_terminal()
+
+    render_info(lines, next, level, score, 'top')
     board.render_board(filled_l)
+    render_info(lines, next, level, score, 'bottom')
+
 
 def check_line_clears(board):
     filled_lines = board.check_filled_lines()
 
     if len(filled_lines) > 0:
-        update_board(board, filled_lines)
+        update_render(board, filled_lines)
         time.sleep(0.15)
         board.clear_lines(filled_lines)
         board.shift_rest(filled_lines)
