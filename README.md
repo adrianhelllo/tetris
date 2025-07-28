@@ -16,6 +16,12 @@ pip install keyboard
   - Soft Drop: S (Hold)
   - Rotate Clockwise: R
 
+### Scoring:
+  - Soft dropping:
+    - *1 point* / cell held down on
+  - Line clears:
+    - *40 / 100 / 300 / 1200 * (level + 1) points* for 1, 2, 3, or 4 simultaneous line clears, respectively
+
 ## ❗Board clearing, therefore, board updates may not work on other operating systems.
 - Supported OS: Windows, macOS, Linux (Major distros).
 
