@@ -45,7 +45,7 @@ def render_with_active(board_obj, active_piece):
     board_obj.board = original_board
 
 def render_info(level, score, lines, next):
-    ...
+    print(f"LVL: {level}\nPTS: {score}\nLINES: {lines}\nNXT: {next}")
 
 def is_level_up(lines_cleared):
     if lines_cleared == 0:
