@@ -1,4 +1,5 @@
 import time
+import random
 import keyboard
 import board as board_f
 import logic as logic_f
@@ -6,19 +7,23 @@ import tetromino as piece_f
 import config as config_f
 from logic import update_render as update
 from logic import shift_active_piece as shift
+from logic import random_shape as next_s
 from config import TICK_RATE as TICK
 
 def main():
-    score = 0
     lines_cleared = 0
+    next_shape = next_s()
+    level = 0
+    score = 0
+
     base_fall_interval = config_f.BASE_FALL_INTERVAL
     soft_drop_interval = config_f.SOFT_DROP_INTERVAL
     playing = True
 
     board_obj = board_f.Board()
-    active_piece = piece_f.Tetromino()
+    active_piece = piece_f.Tetromino(next_shape)
     active_piece.spawn_tetromino(board_obj.board)
-    update([])
+    update([lines_cleared, next_shape, level, score], board_obj)
 
     prev_left = False
     prev_right = False
@@ -43,11 +48,16 @@ def main():
                     break
 
                 board_obj.board = active_piece.overlay_piece(active_piece.position, active_piece.cells, board_obj.board)
-                update(board_obj)
+                update([lines_cleared, next_shape, level, score], board_obj)
 
-                lines_cleared += logic_f.check_line_clears(board_obj)
+                current_cleared = logic_f.check_line_clears(board_obj)
 
-                logic_f.is_level_up(lines_cleared)
+                if current_cleared:
+                    logic_f.do_line_clearing(board_obj, current_cleared)
+                    lines_cleared += len(current_cleared)
+
+                if logic_f.is_level_up(lines_cleared):
+                    level += 1
 
                 active_piece = piece_f.Tetromino()
                 active_piece.spawn_tetromino(board_obj.board)

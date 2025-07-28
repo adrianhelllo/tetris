@@ -8,8 +8,8 @@ from config import BOARD_WIDTH, BOARD_HEIGHT
 from config import LARGEST_PIECE_WIDTH as lrg
 
 class Tetromino:
-    def __init__(self):
-        self.shape = random.choice(list(config_f.PIECES.keys()))
+    def __init__(self, next):
+        self.shape = next
         self.cells = config_f.PIECES[self.shape]
         self.position = [0, (BOARD_WIDTH - 1) // 2 - (len(self.cells[0]) - 1) // 2]
         self.cell_positions = []

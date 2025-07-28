@@ -1,4 +1,5 @@
 import time
+import random
 import os
 import copy
 import config as config_f
@@ -6,7 +7,10 @@ import config as config_f
 def clear_terminal():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-def update_render(info, side, board, filled_l=None):
+def random_shape():
+    return random.choice(list(config_f.PIECES.keys()))
+
+def update_render(info, board, filled_l=None):
     lines, next, level, score = info
 
     clear_terminal()
@@ -20,14 +24,14 @@ def check_line_clears(board):
     filled_lines = board.check_filled_lines()
 
     if len(filled_lines) > 0:
-        update_render(board, filled_lines)
-        time.sleep(0.15)
-        board.clear_lines(filled_lines)
-        board.shift_rest(filled_lines)
-
-        return len(filled_lines)
+        return filled_lines
     
     return 0
+
+def do_line_clearing(board, filled_l):
+    time.sleep(0.15)
+    board.clear_lines(filled_l)
+    board.shift_rest(filled_l)
 
 def shift_active_piece(board, piece):
     shifted_board = copy.deepcopy(board)
