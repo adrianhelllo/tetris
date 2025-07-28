@@ -33,6 +33,12 @@ def do_line_clearing(board, filled_l):
     board.clear_lines(filled_l)
     board.shift_rest(filled_l)
 
+def get_clear_value(filled_l):
+    if len(filled_l) <= 4:
+        return config_f.LINE_CLEAR_VALUES[len(filled_l) - 1]
+    else:
+        return max(config_f.LINE_CLEAR_VALUES)
+
 def shift_active_piece(board, piece):
     shifted_board = copy.deepcopy(board)
 

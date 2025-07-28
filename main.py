@@ -45,6 +45,8 @@ def main():
             if active_piece.can_fall(board_obj.board):
                 active_piece.shift_piece(board_obj.board)
                 logic_f.render_with_active([lines_cleared, next_shape, level, score], board_obj, active_piece)
+                if fall_interval == soft_drop_interval:
+                    score += config_f.SOFT_DROP_VALUE
             else:
                 if logic_f.is_game_over(board_obj.board, board_obj):
                     playing = False
@@ -58,9 +60,10 @@ def main():
                 if current_cleared:
                     logic_f.do_line_clearing(board_obj, current_cleared)
                     lines_cleared += len(current_cleared)
+                    score += logic_f.get_clear_value(current_cleared)
                     level_buffer = False
 
-                if not(level_buffer) and  logic_f.is_level_up(lines_cleared):
+                if not (level_buffer) and logic_f.is_level_up(lines_cleared):
                     level += 1
                     level_buffer = True
 
