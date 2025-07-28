@@ -53,11 +53,11 @@ def is_game_over(board, brd_obj):
     
     return False
 
-def render_with_active(board_obj, active_piece):
+def render_with_active(info, board_obj, active_piece):
     temp_board = active_piece.overlay_piece(active_piece.position, active_piece.cells, board_obj.board)
     original_board = board_obj.board
     board_obj.board = temp_board
-    update_board(board_obj)
+    update_render(info, board_obj)
     board_obj.board = original_board
 
 def render_info(lines, next, level, score, side):
@@ -66,13 +66,11 @@ def render_info(lines, next, level, score, side):
     elif side == 'bottom':
         short_range = (2, 4)
 
-    shorthands = [config_f.BOTTOM_INFO_SHORTHANDS[i] for i in range(*short_range)]
-    args = [lines, next, level, score]
+    shorthands = config_f.INFO_SHORTHANDS[short_range[0]:short_range[1]]
+    args = [lines, next, level, score][short_range[0]:short_range[1]]
 
-    info_pairs = list(zip(shorthands, args))
-
-    for pair in info_pairs:
-        print(f"{pair[0]}: {pair[1]}", end=' | ')
+    for stat, value in zip(shorthands, args):
+        print(f"{stat}: {value}", end=' | ')
     print()
 
 def is_level_up(lines_cleared):
