@@ -10,6 +10,7 @@ from config import TICK_RATE as TICK
 
 def main():
     score = 0
+    lines_cleared = 0
     base_fall_interval = config_f.BASE_FALL_INTERVAL
     soft_drop_interval = config_f.SOFT_DROP_INTERVAL
     playing = True
@@ -44,7 +45,9 @@ def main():
                 board_obj.board = active_piece.overlay_piece(active_piece.position, active_piece.cells, board_obj.board)
                 update(board_obj)
 
-                logic_f.check_line_clears(board_obj)
+                lines_cleared += logic_f.check_line_clears(board_obj)
+
+                logic_f.is_level_up(lines_cleared)
 
                 active_piece = piece_f.Tetromino()
                 active_piece.spawn_tetromino(board_obj.board)

@@ -15,6 +15,8 @@ def check_line_clears(board):
         board.clear_lines(filled_lines)
         board.shift_rest(filled_lines)
 
+        return filled_lines
+
 def shift_active_piece(board, piece):
     shifted_board = copy.deepcopy(board)
 
@@ -41,6 +43,14 @@ def render_with_active(board_obj, active_piece):
     board_obj.board = temp_board
     update_board(board_obj)
     board_obj.board = original_board
+
+def render_info(level, score, lines, next):
+    ...
+
+def is_level_up(lines_cleared):
+    if lines_cleared == 0:
+        return False
+    return lines_cleared % 10 == 0
 
 
 
