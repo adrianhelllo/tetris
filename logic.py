@@ -79,10 +79,8 @@ def render_info(lines, next, level, score, side):
         print(f"{stat}: {value}", end=' | ')
     print()
 
-def is_level_up(lines_cleared):
-    if lines_cleared == 0:
-        return False
-    return lines_cleared % 10 == 0
+def is_level_up(lines_cleared, current_level):
+    return lines_cleared >= (current_level + 1) * 10
 
 
 

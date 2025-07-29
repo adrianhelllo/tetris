@@ -16,11 +16,9 @@ def main():
     level = 0
     score = 0
 
-    base_fall_interval = config_f.BASE_FALL_INTERVAL
+    base_fall_interval = config_f.BASE_DROP_INTERVAL / 60 
     soft_drop_interval = config_f.SOFT_DROP_INTERVAL
     playing = True
-
-    level_buffer = False
 
     board_obj = board_f.Board()
     active_piece = piece_f.Tetromino(next_shape)
@@ -61,11 +59,17 @@ def main():
                     logic_f.do_line_clearing(board_obj, current_cleared)
                     lines_cleared += len(current_cleared)
                     score += logic_f.get_clear_value(current_cleared)
-                    level_buffer = False
 
-                if not (level_buffer) and logic_f.is_level_up(lines_cleared):
+                if logic_f.is_level_up(lines_cleared, level):
                     level += 1
-                    level_buffer = True
+                    if level < 9:
+                        base_fall_interval = (config_f.BASE_DROP_INTERVAL - level * 5) / 60
+                    else:
+                        new_fall_interval = (config_f.FAST_DROP_INTERVAL - (level - 9)) / 60
+                        if new_fall_interval * 60 >= 1:
+                            base_fall_interval = new_fall_interval
+                        else:
+                            base_fall_interval = 1 / 60
 
                 active_piece = piece_f.Tetromino(next_shape)
                 active_piece.spawn_tetromino(board_obj.board)
