@@ -54,9 +54,10 @@ def main():
                     break
 
                 board_obj.board = active_piece.overlay_piece(active_piece.position, active_piece.cells, board_obj.board)
-                update([lines_cleared, next_shape, level, score], board_obj, level_fg, level_bg)
 
                 current_cleared = logic_f.check_line_clears(board_obj)
+
+                update([lines_cleared, next_shape, level, score], board_obj, level_fg, level_bg, current_cleared)
 
                 if current_cleared:
                     logic_f.do_line_clearing(board_obj, current_cleared)

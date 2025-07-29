@@ -65,7 +65,7 @@ def check_line_clears(board):
     return 0
 
 def do_line_clearing(board, filled_l):
-    time.sleep(0.15)
+    time.sleep(0.2)
     board.clear_lines(filled_l)
     board.shift_rest(filled_l)
 
