@@ -7,6 +7,15 @@ import config as config_f
 def clear_terminal():
     os.system('cls' if os.name == 'nt' else 'clear')
 
+def hex_to_rgb(hex, background=False):
+    clear_hex = hex.strip('#')
+    return tuple(int(clear_hex[i:i+2], 16) for i in (0, 2, 4))
+
+def style_char(fg_col, bg_col, char):
+    fr, fg, fb = hex_to_rgb(fg_col)
+    br, bg, bb = hex_to_rgb(bg_col)
+    return f'\033[38;2;{fr};{fg};{fb}m\033[48;2;{br};{bg};{bb}m{char}\033[0m'
+
 def random_shape():
     return random.choice(list(config_f.PIECES.keys()))
 

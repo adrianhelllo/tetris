@@ -62,10 +62,12 @@ def main():
 
                 if logic_f.is_level_up(lines_cleared, level):
                     level += 1
+
                     if level < 9:
                         base_fall_interval = (config_f.BASE_DROP_INTERVAL - level * 5) / 60
                     else:
                         new_fall_interval = (config_f.FAST_DROP_INTERVAL - (level - 9)) / 60
+
                         if new_fall_interval * 60 >= 1:
                             base_fall_interval = new_fall_interval
                         else:
