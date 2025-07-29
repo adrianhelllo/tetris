@@ -35,11 +35,11 @@ class Board:
         for y in range(len(self.board)):
             for x in self.board[y]:
                 if filled_l and y in filled_l:
-                    print("▒", end=' ')
+                    print(config_f.LINE_CLEAR_CHAR, end=' ')
                 elif x == 0:
-                    print(".", end=' ')
+                    print(config_f.BOARD_LINING_CHAR, end=' ')
                 else:
-                    print(logic_f.style_char(fg, bg, '▩'), end=' ')
+                    print(logic_f.style_char(fg, bg, config_f.CELL_FILL_CHAR), end=' ')
             print('|')
         print('=' * self.width * 2)
         
