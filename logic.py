@@ -27,18 +27,33 @@ def contrast_check(fg_hex, bg_hex, threshold=0.4):
     return abs(fg_lum - bg_lum) > threshold
 
 def generate_clr_scheme():
-    
+    groups = list(config_f.COLOR_GROUPS)
+
+    fg_group = random.choice(groups)
+    bg_group = random.choice(groups)
+
+    fg = random.choice(fg_group)
+    bg = random.choice(bg_group)
+
+    while not contrast_check(fg, bg) or fg == bg:
+        fg_group = random.choice(groups)
+        bg_group = random.choice(groups)
+
+        fg = random.choice(fg_group)
+        bg = random.choice(bg_group)
+
+    return fg, bg
 
 def random_shape():
     return random.choice(list(config_f.PIECES.keys()))
 
-def update_render(info, board, filled_l=None):
+def update_render(info, board, fg, bg, filled_l=None):
     lines, next, level, score = info
 
     clear_terminal()
 
     render_info(lines, next, level, score, 'top')
-    board.render_board(filled_l)
+    board.render_board(fg, bg, filled_l)
     render_info(lines, next, level, score, 'bottom')
 
 def check_line_clears(board):
@@ -80,7 +95,7 @@ def is_game_over(board, brd_obj):
     
     return False
 
-def render_with_active(info, board_obj, active_piece):
+def render_with_active(info, fg, bg, board_obj, active_piece):
     temp_board = active_piece.overlay_piece(active_piece.position, active_piece.cells, board_obj.board)
     original_board = board_obj.board
     board_obj.board = temp_board

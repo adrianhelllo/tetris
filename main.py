@@ -16,6 +16,8 @@ def main():
     level = 0
     score = 0
 
+    level_fg, level_bg = logic_f.generate_clr_scheme()
+
     base_fall_interval = config_f.BASE_DROP_INTERVAL / 60 
     soft_drop_interval = config_f.SOFT_DROP_INTERVAL
     playing = True
@@ -24,7 +26,7 @@ def main():
     active_piece = piece_f.Tetromino(next_shape)
     active_piece.spawn_tetromino(board_obj.board)
     next_shape = next_s()
-    update([lines_cleared, next_shape, level, score], board_obj)
+    update([lines_cleared, next_shape, level, score], level_fg, level_bg, board_obj)
 
     prev_left = False
     prev_right = False
@@ -51,7 +53,7 @@ def main():
                     break
 
                 board_obj.board = active_piece.overlay_piece(active_piece.position, active_piece.cells, board_obj.board)
-                update([lines_cleared, next_shape, level, score], board_obj)
+                update([lines_cleared, next_shape, level, score], level_fg, level_bg, board_obj)
 
                 current_cleared = logic_f.check_line_clears(board_obj)
 
@@ -61,6 +63,8 @@ def main():
                     score += logic_f.get_clear_value(current_cleared)
 
                 if logic_f.is_level_up(lines_cleared, level):
+                    level_fg, level_bg = logic_f.generate_clr_scheme()
+                    
                     level += 1
 
                     if level < 9:
@@ -92,7 +96,7 @@ def main():
         if cur_rot and not prev_rot:
             active_piece.rotate_piece(board_obj.board)
 
-        logic_f.render_with_active([lines_cleared, next_shape, level, score], board_obj, active_piece)
+        logic_f.render_with_active([lines_cleared, next_shape, level, score], level_fg, level_bg, board_obj, active_piece)
 
         prev_left = cur_left
         prev_right = cur_right

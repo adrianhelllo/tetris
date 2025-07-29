@@ -1,4 +1,5 @@
 import time
+import logic as logic_f
 import config as config_f
 from config import BOARD_WIDTH, BOARD_HEIGHT
 
@@ -29,7 +30,7 @@ class Board:
         for line_y in filled_l:
             self.board[line_y] = [0] * len(self.board[line_y])
 
-    def render_board(self, filled_l=None):
+    def render_board(self, fg, bg, filled_l=None):
         print('=' * BOARD_WIDTH * 2)
         for y in range(len(self.board)):
             for x in self.board[y]:
@@ -38,8 +39,7 @@ class Board:
                 elif x == 0:
                     print(".", end=' ')
                 else:
-                    color = config_f.COLORS.get(x, '')
-                    print(f"{color}■{config_f.RESET}", end=' ')
+                    print(logic_f.style_char(fg, bg, '$'))
             print('|')
         print('=' * self.width * 2)
         
