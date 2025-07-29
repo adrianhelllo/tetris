@@ -26,7 +26,7 @@ pip install keyboard
  - **Board Clearing not working**:
       - In some rare cases, board clearances may not work. Please let me know about any OSs on which this happens. Supported OS: Windows, macOS, major Linux distros.
  - **Terminal version**:
-      - Your text editor's / IDE's terminal has to support 24-bit TrueColor for the color schemes to work.
+      - Your text editor's / IDE's terminal has to support 24-bit TrueColor for the color schemes to work. Most modern consoles, such as VSCode, support this feature.
 
 ## Please let me know about any issues you experience during use. I would greatly appreciate it.
 
