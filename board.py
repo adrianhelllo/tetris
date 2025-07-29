@@ -39,7 +39,7 @@ class Board:
                 elif x == 0:
                     print(".", end=' ')
                 else:
-                    print(logic_f.style_char(fg, bg, '$'))
+                    print(logic_f.style_char(fg, bg, '▩'), end=' ')
             print('|')
         print('=' * self.width * 2)
         

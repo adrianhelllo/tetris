@@ -12,7 +12,6 @@ from config import TICK_RATE as TICK
 
 def main():
     lines_cleared = 0
-    next_shape = next_s()
     level = 0
     score = 0
 
@@ -22,11 +21,13 @@ def main():
     soft_drop_interval = config_f.SOFT_DROP_INTERVAL
     playing = True
 
+    next_shape = next_s()
+
     board_obj = board_f.Board()
     active_piece = piece_f.Tetromino(next_shape)
     active_piece.spawn_tetromino(board_obj.board)
     next_shape = next_s()
-    update([lines_cleared, next_shape, level, score], level_fg, level_bg, board_obj)
+    update([lines_cleared, next_shape, level, score], board_obj, level_fg, level_bg)
 
     prev_left = False
     prev_right = False
@@ -44,7 +45,7 @@ def main():
         if now - last_fall_time >= fall_interval:
             if active_piece.can_fall(board_obj.board):
                 active_piece.shift_piece(board_obj.board)
-                logic_f.render_with_active([lines_cleared, next_shape, level, score], board_obj, active_piece)
+                logic_f.render_with_active([lines_cleared, next_shape, level, score], level_fg, level_bg, board_obj, active_piece)
                 if fall_interval == soft_drop_interval:
                     score += config_f.SOFT_DROP_VALUE
             else:
@@ -53,7 +54,7 @@ def main():
                     break
 
                 board_obj.board = active_piece.overlay_piece(active_piece.position, active_piece.cells, board_obj.board)
-                update([lines_cleared, next_shape, level, score], level_fg, level_bg, board_obj)
+                update([lines_cleared, next_shape, level, score], board_obj, level_fg, level_bg)
 
                 current_cleared = logic_f.check_line_clears(board_obj)
 
