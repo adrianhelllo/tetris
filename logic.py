@@ -28,7 +28,6 @@ def update_render(info, board, filled_l=None):
     board.render_board(filled_l)
     render_info(lines, next, level, score, 'bottom')
 
-
 def check_line_clears(board):
     filled_lines = board.check_filled_lines()
 
@@ -90,6 +89,8 @@ def render_info(lines, next, level, score, side):
 
 def is_level_up(lines_cleared, current_level):
     return lines_cleared >= (current_level + 1) * 10
+
+print(style_char('#e3aa71', '#380d75', '#'))
 
 
 

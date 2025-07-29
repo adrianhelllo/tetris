@@ -46,7 +46,7 @@ LARGEST_PIECE_WIDTH = max(len(row) for piece in PIECES.values() for row in piece
 
 RESET = '\033[0m'
 
-COLOR_GROUPS_REF = ['REDS', 'ORANGES', 'YELLOWS', 'LIGHT-GREENS', 'GREENS', 'LIGHT-BLUES', 'BLUES', 'DARK-BLUES', 'PURPLES', 'PINKS']
+COLOR_GROUPS_REF = ['REDS', 'ORANGES', 'YELLOWS', 'LIGHT-GREENS', 'GREENS', 'LIGHT-BLUES', 'BLUES', 'DARK-BLUES', 'PURPLES', 'PINKS', 'MONOCHROMES']
 
 COLOR_GROUPS = [
     ['#f78b8b', "#cc4444", '#871818'],
@@ -58,7 +58,8 @@ COLOR_GROUPS = [
     ['#7fd2f5', '#2bb3ed', '#105978'],
     ["#85aaee", '#3673e3', '#153c85'],
     ["#ba94ee", '#721ee8', '#380d75'],
-    ['#e07bcb', '#f02bc5', '#8a0c6f']
+    ['#e07bcb', '#f02bc5', '#8a0c6f'],
+    ['#eeeeee', '#777777', '#222222']
 ]
 
 GAME_OVER_MESSAGE = r"""
