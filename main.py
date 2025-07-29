@@ -17,7 +17,7 @@ def main():
 
     level_fg, level_bg = logic_f.generate_clr_scheme()
 
-    base_fall_interval = config_f.BASE_DROP_INTERVAL / 60 
+    base_fall_interval = config_f.BASE_DROP_INTERVAL / 60
     soft_drop_interval = config_f.SOFT_DROP_INTERVAL
     playing = True
 
