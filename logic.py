@@ -16,6 +16,19 @@ def style_char(fg_col, bg_col, char):
     br, bg, bb = hex_to_rgb(bg_col)
     return f'\033[38;2;{fr};{fg};{fb}m\033[48;2;{br};{bg};{bb}m{char}\033[0m'
 
+def luminance(rgb):
+    r, g, b = [v / 255 for v in rgb]
+    return 0.2126*r + 0.7152*g + 0.0722*b
+
+def contrast_check(fg_hex, bg_hex, threshold=0.4):
+    fg_lum = luminance(hex_to_rgb(fg_hex))
+    bg_lum = luminance(hex_to_rgb(bg_hex))
+
+    return abs(fg_lum - bg_lum) > threshold
+
+def generate_clr_scheme():
+    
+
 def random_shape():
     return random.choice(list(config_f.PIECES.keys()))
 
@@ -90,7 +103,7 @@ def render_info(lines, next, level, score, side):
 def is_level_up(lines_cleared, current_level):
     return lines_cleared >= (current_level + 1) * 10
 
-print(style_char('#e3aa71', '#380d75', '#'))
+
 
 
 
