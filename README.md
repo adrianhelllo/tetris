@@ -23,9 +23,9 @@ pip install keyboard
     - *40 / 100 / 300 / 1200 * (level + 1) points* for 1, 2, 3, or 4 simultaneous line clears, respectively
 
 ## ❗Support issues:
-### - Board Clearing not working:
+ - **Board Clearing not working**:
       - In some rare cases, board clearances may not work. Please let me know about any OSs on which this happens. Supported OS: Windows, macOS, major Linux distros.
-### - Terminal version:
+ - **Terminal version**:
       - Your text editor's / IDE's terminal has to support 24-bit TrueColor for the color schemes to work.
 
 ## Please let me know about any issues you experience during use. I would greatly appreciate it.
