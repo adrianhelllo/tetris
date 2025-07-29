@@ -1,7 +1,7 @@
 # NES Tetris clone || Complete! 🎉
 This project was purely written in Python.
 
-As of 2025. 07. 27, the game is entirely playable through the terminal. Other additions, such as levels and scoring, are still yet to be added.
+This project is complete as of 2025. 07. 29. Minor bugfixes will still be made.
 
 ## How to run:
 - Clone the project onto your computer, or download the files directly.
