@@ -51,7 +51,7 @@ def main():
             else:
                 if logic_f.is_game_over(board_obj.board, board_obj):
                     playing = False
-                    break
+                    return
 
                 board_obj.board = active_piece.overlay_piece(active_piece.position, active_piece.cells, board_obj.board)
 
