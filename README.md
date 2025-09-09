@@ -9,7 +9,7 @@ This project is complete as of 2025. 07. 29. Minor bugfixes will still be made.
 ```bash
 pip install keyboard
 ```
-- Run main.py either through the Windows Terminal or in your code editor.
+- Run main.py either through the Terminal.
 ### Controls:
   - Move Left: A
   - Move Right: D
@@ -24,9 +24,9 @@ pip install keyboard
 
 ## ❗Support issues:
  - **Board Clearing not working**:
-      - In some rare cases, board clearances may not work. Please let me know about any OSs on which this happens. Supported OS: Windows, macOS, major Linux distros.
+      - In some rare cases, board clearing may not work. Please let me know about any OSs on which this happens. Supported OSs: Windows, macOS, major Linux distros.
  - **Terminal version**:
-      - Your text editor's / IDE's terminal has to support 24-bit TrueColor for the color schemes to work. Most modern consoles, such as VSCode, support this feature.
+      - Your text editor's / IDE's terminal has to support 24-bit TrueColor for the color schemes to work. Most modern consoles, such as VSCode's, support this feature.
 
 ## Please let me know about any issues you experience during use. I would greatly appreciate it.
 
