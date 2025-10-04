@@ -14,6 +14,7 @@ class Tetromino:
         self.position = [0, (BOARD_WIDTH - 1) // 2 - (len(self.cells[0]) - 1) // 2]
         self.cell_positions = []
 
+    # Create a new version of the board with the piece on it (Read piece blueprint from config)
     def overlay_piece(self, pos, cells, board):
         new_board = copy.deepcopy(board)
         y, x = pos
@@ -27,7 +28,8 @@ class Tetromino:
                         new_board[y + dy][x + dx] = self.shape
 
         return new_board
-    
+
+    # Update list of each cell's positions
     def get_cell_positions(self, cells, pos):
         positions = []
 
@@ -37,13 +39,15 @@ class Tetromino:
                     positions.append([pos[0] + y, pos[1] + x])
 
         return positions
-
+        
+    # Copy piece onto board and handle updates (helper)
     def spawn_tetromino(self, board):
         new_board = self.overlay_piece(self.position, self.cells, board)
         self.cell_positions = self.get_cell_positions(self.cells, self.position)
 
         return new_board
-    
+
+    # Determine cells with the highest Y position in a piece (calculate bottom edge)
     def get_bottom_cells(self, board):
         edge_cells = []
         pos_y, pos_x = self.position
@@ -59,13 +63,15 @@ class Tetromino:
                     break
         print(edge_cells)
         return edge_cells
-            
+        
+    # Run position calculation one cell below (helper)     
     def shift_piece(self, board):
         self.position[0] += 1
         self.cell_positions = self.get_cell_positions(self.cells, self.position)
 
         return board
-    
+        
+    # Run position calculation one cell to the right or left (helper)
     def move_horizontally(self, board, direction):
         if direction == config_f.LEFT_BIND:
             if not self.check_collision(board, [self.position[0], self.position[1] - 1], self.cells):
@@ -75,7 +81,8 @@ class Tetromino:
                 self.position[1] += 1
 
         self.cell_positions = self.get_cell_positions(self.cells, self.position)
-
+        
+    # Calculate if moving a piece would create a collision
     def check_collision(self, board, new_position, new_cells):
         # old_position = self.position
         # self.position = new_position
@@ -95,7 +102,8 @@ class Tetromino:
         if any(y >= 0 and board[y][x] != 0 for y, x in new_positions):
             return True
         return False
-    
+        
+    # Pad matrix of cell positions of piece to 4x4 (or whatever the largest element is) for rotation
     def pad_matrix(self, matrix):
         mat_extended = copy.deepcopy(matrix)
 
@@ -110,7 +118,8 @@ class Tetromino:
                 row.append(0)
 
         return mat_extended
-    
+        
+    # Undo padding after rotating piece
     def trim_matrix(self, matrix):
 
         # for y in range(len(matrix)):
@@ -124,7 +133,8 @@ class Tetromino:
             trimmed_cols = [col for col in cols if any(cell != 0 for cell in col)]
             trimmed = [list(row) for row in zip(*trimmed_cols)] #undo transposing
         return trimmed
-    
+
+    # Rotates piece in its position matrix
     def rotate_piece(self, board):
         mat_padded = self.pad_matrix(self.cells)
         rotated_positions = []
@@ -148,6 +158,7 @@ class Tetromino:
             self.cells = rotated_piece
             self.cell_positions = self.get_cell_positions(self.cells, self.position)
 
+    # check_collision() exists, idk why this is used
     def can_fall(self, board):
         positions = self.get_cell_positions(self.cells, self.position)
         for y, x in positions:
