@@ -1,7 +1,7 @@
 # NES Tetris clone || Complete! 🎉
 This project was purely written in Python.
 
-This project is complete as of 2025. 07. 29. Minor bugfixes will still be made.
+This project is complete as of 2025. 07. 29. Minor bugfixes may still be made.
 
 ## How to run:
 - Clone the project onto your computer, or download the files directly.
@@ -9,24 +9,19 @@ This project is complete as of 2025. 07. 29. Minor bugfixes will still be made.
 ```bash
 pip install keyboard
 ```
-- Run main.py either through the Terminal.
-### Controls:
+- Run main.py.
+## Controls:
   - Move Left: A
   - Move Right: D
   - Soft Drop: S (Hold)
   - Rotate Clockwise: R
 
-### Scoring:
+## Scoring:
   - Soft dropping:
     - *1 point* / cell held down on
   - Line clears:
     - *40 / 100 / 300 / 1200 * (level + 1) points* for 1, 2, 3, or 4 simultaneous line clears, respectively
 
-## ❗Support issues:
- - **Board Clearing not working**:
-      - In some rare cases, board clearing may not work. Please let me know about any OSs on which this happens. Supported OSs: Windows, macOS, major Linux distros.
+## Support:
  - **Terminal version**:
       - Your text editor's / IDE's terminal has to support 24-bit TrueColor for the color schemes to work. Most modern consoles, such as VSCode's, support this feature.
-
-## Please let me know about any issues you experience during use. I would greatly appreciate it.
-
